@@ -1,0 +1,102 @@
+[
+  {
+    "epoch": 1,
+    "rounds": 16,
+    "winRate": "25.0",
+    "lossRate": "25.0",
+    "drawRate": "50.0",
+    "avgWinScore": "9.3",
+    "avgMelds": "0.9",
+    "weights": {
+      "shanten": 1000,
+      "ukeire": 15.1125,
+      "handValue": 8,
+      "defense": 800,
+      "tempo": 3,
+      "openPenalty": 0.5,
+      "aggressionBase": 0.6509750000000001,
+      "defenseThreshold": 0.5
+    },
+    "timestamp": 1774141258055
+  },
+  {
+    "epoch": 2,
+    "rounds": 16,
+    "winRate": "25.0",
+    "lossRate": "18.8",
+    "drawRate": "56.3",
+    "avgWinScore": "17.5",
+    "avgMelds": "0.9",
+    "weights": {
+      "shanten": 1000,
+      "ukeire": 15.22527703125,
+      "handValue": 8,
+      "defense": 800,
+      "tempo": 3,
+      "openPenalty": 0.5,
+      "aggressionBase": 0.6519465801875001,
+      "defenseThreshold": 0.5
+    },
+    "timestamp": 1774141258360
+  },
+  {
+    "epoch": 3,
+    "rounds": 16,
+    "winRate": "18.8",
+    "lossRate": "12.5",
+    "drawRate": "68.8",
+    "avgWinScore": "12.7",
+    "avgMelds": "0.6",
+    "weights": {
+      "shanten": 1000,
+      "ukeire": 15.338327567946475,
+      "handValue": 8,
+      "defense": 800,
+      "tempo": 3,
+      "openPenalty": 0.5,
+      "aggressionBase": 0.6529147453070753,
+      "defenseThreshold": 0.5
+    },
+    "timestamp": 1774141258784
+  },
+  {
+    "epoch": 4,
+    "rounds": 16,
+    "winRate": "25.0",
+    "lossRate": "12.5",
+    "drawRate": "62.5",
+    "avgWinScore": "27.3",
+    "avgMelds": "0.6",
+    "weights": {
+      "shanten": 1000,
+      "ukeire": 15.451648076284254,
+      "handValue": 8,
+      "defense": 800,
+      "tempo": 3,
+      "openPenalty": 0.5,
+      "aggressionBase": 0.6538795001737538,
+      "defenseThreshold": 0.5
+    },
+    "timestamp": 1774141259107
+  },
+  {
+    "epoch": 5,
+    "rounds": 16,
+    "winRate": "25.0",
+    "lossRate": "18.8",
+    "drawRate": "56.3",
+    "avgWinScore": "17.3",
+    "avgMelds": "0.7",
+    "weights": {
+      "shanten": 1000,
+      "ukeire": 15.565235014877778,
+      "handValue": 8,
+      "defense": 800,
+      "tempo": 3,
+      "openPenalty": 0.5,
+      "aggressionBase": 0.6548408496721002,
+      "defenseThreshold": 0.5
+    },
+    "timestamp": 1774141259355
+  }
+]

@@ -1,0 +1,286 @@
+/* tutorial.css — Tutorial and help overlay styles */
+
+/* Tutorial overlay */
+.tutorial-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(3px);
+}
+
+.tutorial-overlay.hidden {
+  display: none;
+}
+
+.tutorial-panel {
+  background: linear-gradient(180deg, #1a4a2e 0%, #0f3520 100%);
+  border: 2px solid var(--accent);
+  border-radius: 16px;
+  padding: 28px 32px;
+  max-width: 560px;
+  width: 92%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.tutorial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.step-counter {
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+
+.tutorial-panel h3 {
+  font-size: 22px;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tutorial-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.tutorial-body p {
+  margin-bottom: 12px;
+}
+
+.tutorial-body ul, .tutorial-body ol {
+  padding-left: 24px;
+  margin-bottom: 12px;
+}
+
+.tutorial-body li {
+  margin-bottom: 6px;
+}
+
+.tutorial-body strong {
+  color: var(--accent);
+}
+
+.tutorial-body h4 {
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* Tutorial-specific layouts */
+.tutorial-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tile-group {
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+}
+
+.tile-group h4 {
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.tile-group p {
+  margin-bottom: 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.tutorial-formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.formula-part {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 6px 14px;
+  background: rgba(232, 184, 48, 0.15);
+  border-radius: 8px;
+  border: 1px solid rgba(232, 184, 48, 0.3);
+}
+
+.formula-plus, .formula-equals {
+  font-size: 20px;
+  color: var(--text-secondary);
+}
+
+/* Controls table */
+.controls-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+}
+
+.controls-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 13px;
+}
+
+.controls-table td:first-child {
+  white-space: nowrap;
+  width: 120px;
+}
+
+kbd {
+  display: inline-block;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-family: 'Monaco', 'Consolas', monospace;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+/* Scoring table */
+.scoring-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+}
+
+.scoring-table td {
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 13px;
+}
+
+.scoring-table td:last-child {
+  text-align: right;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Tutorial navigation */
+.tutorial-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Help overlay */
+.help-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(3px);
+}
+
+.help-overlay.hidden {
+  display: none;
+}
+
+.help-panel {
+  background: linear-gradient(180deg, #1a4a2e 0%, #0f3520 100%);
+  border: 2px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 24px 28px;
+  max-width: 420px;
+  width: 92%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.help-header h3 {
+  font-size: 18px;
+  color: var(--accent);
+}
+
+.help-section {
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.help-section h4 {
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.help-section pre {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  font-family: 'Monaco', 'Consolas', monospace;
+}
+
+.help-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar styling */
+.tutorial-panel::-webkit-scrollbar,
+.help-panel::-webkit-scrollbar,
+.log-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tutorial-panel::-webkit-scrollbar-track,
+.help-panel::-webkit-scrollbar-track,
+.log-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tutorial-panel::-webkit-scrollbar-thumb,
+.help-panel::-webkit-scrollbar-thumb,
+.log-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+.tutorial-panel::-webkit-scrollbar-thumb:hover,
+.help-panel::-webkit-scrollbar-thumb:hover,
+.log-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head><title>Mahjong Tests</title></head>
+<body>
+<h2>Mahjong Core Logic Tests</h2>
+<pre id="output"></pre>
+<script src="js/interfaces.js"></script>
+<script src="js/constants.js"></script>
+<script src="js/tile.js"></script>
+<script src="js/wall.js"></script>
+<script src="js/hand.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/player.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/game-state.js"></script>
+<script>
+const out = document.getElementById('output');
+let pass = 0, fail = 0;
+function assert(cond, msg) {
+  if (cond) { pass++; out.textContent += `✓ ${msg}\n`; }
+  else { fail++; out.textContent += `✗ FAIL: ${msg}\n`; }
+}
+
+const T = window.MJ.Tile;
+const W = window.MJ.Wall;
+const H = window.MJ.Hand;
+const S = window.MJ.Scoring;
+const P = window.MJ.Player;
+const AI = window.MJ.AI;
+const GS = window.MJ.GameState;
+const C = window.MJ.Constants;
+
+// Tile tests
+out.textContent += '--- Tile Module ---\n';
+const t1 = T.create('bamboo', 3);
+const t2 = T.create('bamboo', 3);
+const t3 = T.create('circles', 5);
+assert(T.equals(t1, t2), 'Same tiles are equal');
+assert(!T.equals(t1, t3), 'Different tiles are not equal');
+assert(T.isSuited(t1), 'Bamboo is suited');
+assert(!T.isHonor(t1), 'Bamboo is not honor');
+const wind = T.create('wind', 1);
+assert(T.isHonor(wind), 'Wind is honor');
+assert(!T.isSuited(wind), 'Wind is not suited');
+assert(T.isTerminal(T.create('bamboo', 1)), '1 is terminal');
+assert(T.isTerminal(T.create('characters', 9)), '9 is terminal');
+assert(!T.isTerminal(T.create('bamboo', 5)), '5 is not terminal');
+assert(T.getName(t1) === '3 of Bamboo', 'Tile name works');
+assert(T.getDisplay(t1).length > 0, 'Tile display works');
+
+// Sort
+const tiles = [T.create('circles',3), T.create('bamboo',1), T.create('characters',9)];
+const sorted = T.sortTiles(tiles);
+assert(sorted[0].suit === 'characters', 'Sort: characters first');
+assert(sorted[1].suit === 'bamboo', 'Sort: bamboo second');
+
+// Wall tests
+out.textContent += '\n--- Wall Module ---\n';
+const wall = W.create();
+assert(W.remaining(wall) > 100, `Wall has ${W.remaining(wall)} tiles`);
+assert(!W.isEmpty(wall), 'Wall is not empty');
+const drawn = W.draw(wall);
+assert(drawn !== null, 'Can draw from wall');
+assert(drawn.suit && drawn.rank, 'Drawn tile has suit and rank');
+
+// Count all tiles
+let drawCount = 1;
+while (W.draw(wall)) drawCount++;
+assert(drawCount >= 100, `Drew ${drawCount} tiles total (some reserved for dead wall)`);
+
+// Hand tests
+out.textContent += '\n--- Hand Module ---\n';
+const hand = H.create();
+H.addTile(hand, T.create('bamboo', 1));
+H.addTile(hand, T.create('bamboo', 2));
+H.addTile(hand, T.create('bamboo', 3));
+assert(hand.concealed.length === 3, 'Hand has 3 tiles');
+H.removeTile(hand, T.create('bamboo', 2));
+assert(hand.concealed.length === 2, 'Removed tile, now 2');
+
+// Win detection
+const winHand = H.create();
+// 4 sets + 1 pair: 1-2-3b, 4-5-6b, 7-8-9b, 1-1-1c, 2-2c
+[1,2,3,4,5,6,7,8,9].forEach(r => H.addTile(winHand, T.create('bamboo', r)));
+[1,1,1,2,2].forEach(r => H.addTile(winHand, T.create('circles', r)));
+assert(winHand.concealed.length === 14, 'Win hand has 14 tiles');
+assert(H.isWinningHand(winHand), 'Detects winning hand (3 chows + 1 pong + pair)');
+
+const noWinHand = H.create();
+[1,2,3,4,5,6,7,8,9,1,2,3,4,6].forEach(r => H.addTile(noWinHand, T.create('bamboo', r)));
+assert(!H.isWinningHand(noWinHand), 'Non-winning hand detected');
+
+// Pong detection
+const pongHand = H.create();
+H.addTile(pongHand, T.create('dragon', 1));
+H.addTile(pongHand, T.create('dragon', 1));
+H.addTile(pongHand, T.create('dragon', 1));
+const pongs = H.findPongs(pongHand, T.create('dragon', 1));
+assert(pongs.length > 0, 'Finds pong possibility');
+
+// Kong detection
+const kongHand = H.create();
+[1,1,1].forEach(() => H.addTile(kongHand, T.create('wind', 2)));
+const kongs = H.findKongs(kongHand, T.create('wind', 2));
+assert(kongs.length > 0, 'Finds kong possibility');
+const cKongs = H.findConcealedKongs(kongHand);
+assert(cKongs.length === 0, 'No concealed kong with only 3');
+H.addTile(kongHand, T.create('wind', 2));
+const cKongs2 = H.findConcealedKongs(kongHand);
+assert(cKongs2.length === 1, 'Finds concealed kong with 4');
+
+// Chow detection
+const chowHand = H.create();
+H.addTile(chowHand, T.create('characters', 4));
+H.addTile(chowHand, T.create('characters', 5));
+const chows = H.findChows(chowHand, T.create('characters', 6));
+assert(chows.length > 0, 'Finds chow possibility (4-5 + 6)');
+
+// Player tests
+out.textContent += '\n--- Player Module ---\n';
+const player = P.create(0, true);
+assert(player.isHuman, 'Player 0 is human');
+assert(P.getSeatWind(player) === 'east', 'Player 0 is east');
+P.addDiscard(player, T.create('bamboo', 5));
+assert(P.getDiscards(player).length === 1, 'Discard tracked');
+
+// AI tests
+out.textContent += '\n--- AI Module ---\n';
+const aiPlayer = P.create(1, false);
+[1,2,3,5,7].forEach(r => H.addTile(aiPlayer.hand, T.create('bamboo', r)));
+[2,4,6,8].forEach(r => H.addTile(aiPlayer.hand, T.create('circles', r)));
+[1,3].forEach(r => H.addTile(aiPlayer.hand, T.create('wind', r)));
+H.addTile(aiPlayer.hand, T.create('dragon', 1));
+H.addTile(aiPlayer.hand, T.create('dragon', 2));
+const discard = AI.chooseDiscard(aiPlayer, null);
+assert(discard !== null, 'AI chooses a discard');
+assert(discard.suit && discard.rank, 'AI discard has suit/rank');
+const quality = AI.evaluateHand(aiPlayer.hand);
+assert(typeof quality === 'number', `AI evaluates hand quality: ${quality}`);
+
+// Scoring tests
+out.textContent += '\n--- Scoring Module ---\n';
+const decomp = H.getWinningDecompositions(winHand);
+assert(decomp.length > 0, `Found ${decomp.length} winning decomposition(s)`);
+if (decomp.length > 0) {
+  const score = S.calculateScore(decomp[0], {
+    seatWind: 'east', roundWind: 'east', selfDrawn: true, concealed: true
+  });
+  assert(score.total > 0, `Score: ${score.total} points`);
+  assert(score.breakdown.length > 0, `Has ${score.breakdown.length} scoring element(s)`);
+  out.textContent += `  Score breakdown: ${S.getScoreBreakdown(score)}\n`;
+}
+
+// GameState tests
+out.textContent += '\n--- GameState Module ---\n';
+const gs = GS.create();
+assert(gs.players.length === 4, '4 players created');
+assert(gs.players[0].isHuman, 'Player 0 is human');
+assert(!gs.players[1].isHuman, 'Player 1 is AI');
+assert(GS.getPhase(gs) === C.GAME_PHASES.WAITING, 'Initial phase is waiting');
+GS.addLog(gs, 'test');
+assert(GS.getLog(gs).length === 1, 'Log entry added');
+
+// Summary
+out.textContent += `\n=============================\n`;
+out.textContent += `Results: ${pass} passed, ${fail} failed\n`;
+if (fail === 0) out.textContent += '🎉 All tests passed!\n';
+</script>
+</body>
+</html>

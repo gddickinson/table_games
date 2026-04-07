@@ -1,0 +1,32 @@
+{
+  "weights": {
+    "shanten": 1000,
+    "ukeire": 15.565235014877778,
+    "handValue": 8,
+    "defense": 800,
+    "tempo": 3,
+    "openPenalty": 0.5,
+    "aggressionBase": 0.6548408496721002,
+    "defenseThreshold": 0.5
+  },
+  "epoch": 5,
+  "learningRate": 0.004876243765609375,
+  "dangerTable": {
+    "honor_early": 0.05,
+    "honor_late": 0.15,
+    "terminal": 0.08,
+    "middle": 0.2,
+    "suji_safe": 0.06,
+    "kabe_safe": 0.03,
+    "genbutsu": 0,
+    "unknown": 0.15
+  },
+  "cumulativeStats": {
+    "totalRounds": 80,
+    "totalWins": 19,
+    "totalLosses": 14,
+    "totalDraws": 47,
+    "totalScore": 323,
+    "bestEpochWinRate": 0.25
+  }
+}

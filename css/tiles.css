@@ -1,0 +1,272 @@
+/* tiles.css — Tile appearance, states, and suit-specific colors */
+
+.mj-tile {
+  width: var(--tile-width);
+  height: var(--tile-height);
+  border-radius: var(--tile-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+/* Face-up tile */
+.mj-tile:not(.face-down) {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(200, 185, 160, 0.03) 0px,
+      transparent 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(200, 185, 160, 0.025) 0px,
+      transparent 1px,
+      transparent 3px
+    ),
+    linear-gradient(180deg, rgba(255,252,245,0.5) 0%, rgba(240,230,210,0.3) 100%),
+    linear-gradient(180deg, #faf6ee 0%, #e8e0d0 100%);
+  border: 1px solid #c4b89a;
+  box-shadow:
+    2px 0 0 #c4a870,
+    0 3px 0 #a08050,
+    2px 3px 0 #907040,
+    0 5px 8px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 1px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Suit-colored left border stripes */
+.mj-tile[data-suit="bamboo"]:not(.face-down) { border-left: 3px solid #2d8a4e; }
+.mj-tile[data-suit="circles"]:not(.face-down) { border-left: 3px solid #1a6bb5; }
+.mj-tile[data-suit="characters"]:not(.face-down) { border-left: 3px solid #c41e3a; }
+.mj-tile[data-suit="wind"]:not(.face-down) { border-left: 3px solid #6a6a6a; }
+.mj-tile[data-suit="dragon"]:not(.face-down) { border-left: 3px solid #8b5a2b; }
+
+/* Subtle suit background tints */
+.mj-tile[data-suit="bamboo"]:not(.face-down) {
+  background:
+    linear-gradient(180deg, rgba(45,138,78,0.04) 0%, rgba(45,138,78,0.02) 100%),
+    linear-gradient(180deg, rgba(255,252,245,0.5) 0%, rgba(240,230,210,0.3) 100%),
+    linear-gradient(180deg, #faf6ee 0%, #e8e0d0 100%);
+}
+.mj-tile[data-suit="circles"]:not(.face-down) {
+  background:
+    linear-gradient(180deg, rgba(26,107,181,0.04) 0%, rgba(26,107,181,0.02) 100%),
+    linear-gradient(180deg, rgba(255,252,245,0.5) 0%, rgba(240,230,210,0.3) 100%),
+    linear-gradient(180deg, #faf6ee 0%, #e8e0d0 100%);
+}
+.mj-tile[data-suit="characters"]:not(.face-down) {
+  background:
+    linear-gradient(180deg, rgba(196,30,58,0.04) 0%, rgba(196,30,58,0.02) 100%),
+    linear-gradient(180deg, rgba(255,252,245,0.5) 0%, rgba(240,230,210,0.3) 100%),
+    linear-gradient(180deg, #faf6ee 0%, #e8e0d0 100%);
+}
+
+/* 3D depth effect */
+.mj-tile:not(.face-down)::after {
+  display: none;
+}
+
+/* Face-down tile */
+.mj-tile.face-down {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.03) 0px,
+      rgba(255,255,255,0.03) 1px,
+      transparent 1px,
+      transparent 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.03) 0px,
+      rgba(255,255,255,0.03) 1px,
+      transparent 1px,
+      transparent 6px
+    ),
+    linear-gradient(135deg, #1e5a3a 0%, #1a4a2e 50%, #0f3520 100%);
+  border: 1px solid #2d6b45;
+  box-shadow:
+    0 3px 0 #071e0e,
+    0 4px 6px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.mj-tile.face-down::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 1px;
+  right: 1px;
+  height: 4px;
+  background: linear-gradient(180deg, #0f3520, #061510);
+  border-radius: 0 0 var(--tile-radius) var(--tile-radius);
+  z-index: -1;
+}
+
+/* SVG tile content */
+.tile-svg-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.tile-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--tile-radius);
+}
+
+/* Small tiles */
+.mj-tile.small {
+  width: var(--tile-small-width);
+  height: var(--tile-small-height);
+}
+
+/* Small tiles: SVG scales automatically via viewBox */
+
+/* Glossy highlight — simulates light reflection from upper-left */
+.mj-tile:not(.face-down):not(.empty-slot)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--tile-radius);
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.08) 35%,
+    transparent 55%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Interactive states */
+.mj-tile.clickable {
+  cursor: pointer;
+}
+
+.mj-tile.clickable:hover {
+  transform: translateY(-6px);
+  background: linear-gradient(180deg, #fffcf5 0%, #f0e8d8 100%);
+  box-shadow:
+    0 6px 0 #b8a88a,
+    0 8px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  z-index: 5;
+}
+
+.mj-tile.selected {
+  transform: translateY(-12px);
+  background: linear-gradient(180deg, #fff8e0 0%, #ffe8a0 100%);
+  border-color: var(--accent);
+  box-shadow:
+    0 8px 0 #c4a840,
+    0 12px 16px rgba(232, 184, 48, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 0 15px rgba(232, 184, 48, 0.3);
+  z-index: 10;
+}
+
+/* Drawn tile separation — traditional visual convention */
+.human-hand .mj-tile.highlighted {
+  margin-left: 14px;
+}
+
+.mj-tile.highlighted {
+  animation: tileGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes tileGlow {
+  0%, 100% {
+    box-shadow:
+      0 2px 0 #b8a88a,
+      0 3px 4px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 0 8px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 2px 0 #b8a88a,
+      0 3px 4px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 0 20px rgba(255, 215, 0, 0.7);
+  }
+}
+
+.mj-tile.dimmed {
+  opacity: 0.5;
+}
+
+/* Horizontal tile (for left/right players) */
+.mj-tile.horizontal {
+  width: var(--tile-height);
+  height: var(--tile-width);
+}
+
+.mj-tile.small.horizontal {
+  width: var(--tile-small-height);
+  height: var(--tile-small-width);
+  transform: rotate(0deg);
+}
+
+/* Empty slot placeholder */
+.mj-tile.empty-slot {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  box-shadow: none;
+}
+
+.mj-tile.empty-slot::after {
+  display: none;
+}
+
+/* Tutorial highlight */
+.tutorial-highlight {
+  outline: 3px solid var(--accent) !important;
+  outline-offset: 4px;
+  animation: highlightPulse 1.5s ease infinite;
+}
+
+@keyframes highlightPulse {
+  0%, 100% { outline-color: var(--accent); }
+  50% { outline-color: transparent; }
+}
+
+/* Discard pile last tile emphasis */
+.discard-section .mj-tile:last-child {
+  box-shadow:
+    0 1px 0 #b8a88a,
+    0 2px 3px rgba(0, 0, 0, 0.3),
+    0 0 6px rgba(255, 255, 255, 0.15);
+}
+
+/* Furiten warning on tiles */
+.mj-tile.furiten-warning {
+  border-color: #c41e3a !important;
+  animation: furitenPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes furitenPulse {
+  0%, 100% {
+    box-shadow:
+      0 3px 0 #a89060,
+      0 4px 6px rgba(0, 0, 0, 0.35),
+      0 0 4px rgba(196, 30, 58, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 3px 0 #a89060,
+      0 4px 6px rgba(0, 0, 0, 0.35),
+      0 0 14px rgba(196, 30, 58, 0.7);
+  }
+}

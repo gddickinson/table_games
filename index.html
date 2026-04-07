@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mahjong — AI-Powered Tile Game with LLM Tutor</title>
+  <meta name="description" content="Full Mahjong simulation with AI opponents, LLM tutor, adaptive learning, practice puzzles, achievements, and multiplayer.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🀄</text></svg>">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/tiles.css">
+  <link rel="stylesheet" href="css/tutorial.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/tutor.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- Core game engine -->
+  <script src="js/interfaces.js"></script>
+  <script src="js/constants.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/wall.js"></script>
+  <script src="js/hand.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/dora.js"></script>
+
+  <!-- AI, learning, and performance -->
+  <script src="js/shanten-table.js"></script>
+  <script src="js/ai-engine.js"></script>
+  <script src="js/ai-learning.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/difficulty.js"></script>
+  <script src="js/exploitative-ai.js"></script>
+  <script src="js/ai-advanced.js"></script>
+  <script src="js/stats.js"></script>
+  <script src="js/claude-player.js"></script>
+  <script src="js/headless.js"></script>
+
+  <!-- Analysis and hints -->
+  <script src="js/furiten.js"></script>
+  <script src="js/scoring-preview.js"></script>
+  <script src="js/hand-path.js"></script>
+  <script src="js/hint-engine.js"></script>
+
+  <!-- Tutoring, conversation, achievements -->
+  <script src="js/tutor.js"></script>
+  <script src="js/llm-tutor.js"></script>
+  <script src="js/llm-config.js"></script>
+  <script src="js/llm-players.js"></script>
+  <script src="js/personality.js"></script>
+  <script src="js/character-learning.js"></script>
+  <script src="js/character-relations.js"></script>
+  <script src="js/living-world.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/practice-mode.js"></script>
+  <script src="js/daily-challenges.js"></script>
+  <script src="js/character-growth.js"></script>
+  <script src="js/new-characters.js"></script>
+  <script src="js/economy.js"></script>
+  <script src="js/campaigns.js"></script>
+  <script src="js/tournament.js"></script>
+  <script src="js/hand-history.js"></script>
+  <script src="js/rule-variants.js"></script>
+  <script src="js/story-arcs.js"></script>
+
+  <!-- Media and presentation -->
+  <script src="js/voice.js"></script>
+  <script src="js/portraits.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/venues.js"></script>
+  <script src="js/spectator.js"></script>
+  <script src="js/photo-album.js"></script>
+  <script src="js/community.js"></script>
+  <script src="js/ai-evolution.js"></script>
+  <script src="js/tutor-advanced.js"></script>
+  <script src="js/accessibility.js"></script>
+  <script src="js/localization.js"></script>
+  <script src="js/character-quests.js"></script>
+  <script src="js/tile-editor.js"></script>
+  <script src="js/mod-system.js"></script>
+  <script src="js/leaderboards.js"></script>
+  <script src="js/replay-theater.js"></script>
+
+  <!-- Living world expansion -->
+  <script src="js/time-system.js"></script>
+  <script src="js/character-aging.js"></script>
+  <script src="js/player-house.js"></script>
+  <script src="js/llm-personality.js"></script>
+  <script src="js/story-scenes.js"></script>
+  <script src="js/music-advanced.js"></script>
+  <script src="js/teaching-overlay.js"></script>
+  <script src="js/variant-integration.js"></script>
+  <script src="js/procedural-characters.js"></script>
+  <script src="js/puzzle-creator.js"></script>
+  <script src="js/narrative-ai.js"></script>
+  <script src="js/spectator-stream.js"></script>
+  <script src="js/cloud-sync.js"></script>
+  <script src="js/native-app.js"></script>
+
+  <!-- Statistics dashboard and lazy loading -->
+  <script src="js/stats-dashboard.js"></script>
+  <script src="js/lazy-loader.js"></script>
+
+  <!-- Documentation viewer -->
+  <script src="js/doc-viewer.js"></script>
+
+  <!-- Game framework and poker -->
+  <script src="js/game-framework.js"></script>
+  <script src="js/game-selector.js"></script>
+  <script src="js/poker/cards.js"></script>
+  <script src="js/poker/hand-eval.js"></script>
+  <script src="js/poker/poker-engine.js"></script>
+  <script src="js/poker/poker-ai.js"></script>
+  <script src="js/poker/poker-renderer.js"></script>
+  <script src="js/poker/poker-dialogue.js"></script>
+  <script src="js/poker/poker-ai-v2.js"></script>
+  <script src="js/poker/poker-tutor.js"></script>
+  <script src="js/poker/poker-living.js"></script>
+  <script src="js/poker/poker-practice.js"></script>
+  <script src="js/poker/poker-learning.js"></script>
+  <script src="js/poker/poker-play.js"></script>
+  <script src="js/poker/poker-tutorial.js"></script>
+  <script src="js/poker/poker-hints.js"></script>
+
+  <!-- Dominoes -->
+  <script src="js/dominoes/domino-tiles.js"></script>
+  <script src="js/dominoes/domino-engine.js"></script>
+  <script src="js/dominoes/domino-ai.js"></script>
+  <script src="js/dominoes/domino-learning.js"></script>
+  <script src="js/dominoes/domino-play.js"></script>
+  <script src="js/dominoes/domino-tutorial.js"></script>
+  <script src="js/dominoes/domino-practice.js"></script>
+  <script src="js/dominoes/domino-hints.js"></script>
+
+  <!-- Blackjack -->
+  <script src="js/blackjack/blackjack-cards.js"></script>
+  <script src="js/blackjack/blackjack-dialogue.js"></script>
+  <script src="js/blackjack/blackjack-engine.js"></script>
+  <script src="js/blackjack/blackjack-ai.js"></script>
+  <script src="js/blackjack/blackjack-play.js"></script>
+  <script src="js/blackjack/blackjack-tutorial.js"></script>
+  <script src="js/blackjack/blackjack-practice.js"></script>
+  <script src="js/blackjack/blackjack-hints.js"></script>
+
+  <!-- Dragon Battle (AD&D) -->
+  <script src="js/dragon/dragon-rules.js"></script>
+  <script src="js/dragon/dragon-characters.js"></script>
+  <script src="js/dragon/dragon-map.js"></script>
+  <script src="js/dragon/dragon-engine.js"></script>
+  <script src="js/dragon/dragon-ai.js"></script>
+  <script src="js/dragon/dragon-renderer.js"></script>
+  <script src="js/dragon/dragon-ui.js"></script>
+  <script src="js/dragon/dragon-dialogue.js"></script>
+  <script src="js/dragon/dragon-tutor.js"></script>
+  <script src="js/dragon/dragon-learning.js"></script>
+  <script src="js/dragon/dragon-play.js"></script>
+
+  <!-- Dragon Campaign -->
+  <script src="js/dragon/campaign-state.js"></script>
+  <script src="js/dragon/campaign-progression.js"></script>
+  <script src="js/dragon/campaign-loot.js"></script>
+  <script src="js/dragon/campaign-bestiary.js"></script>
+  <script src="js/dragon/campaign-story.js"></script>
+  <script src="js/dragon/campaign-locations.js"></script>
+  <script src="js/dragon/campaign-maps.js"></script>
+  <script src="js/dragon/campaign-world.js"></script>
+  <script src="js/dragon/campaign-tokens.js"></script>
+  <script src="js/dragon/campaign-world-renderer.js"></script>
+  <script src="js/dragon/campaign-hamlet.js"></script>
+  <script src="js/dragon/campaign-hamlet-renderer.js"></script>
+  <script src="js/dragon/campaign-ui.js"></script>
+  <script src="js/dragon/campaign-events.js"></script>
+  <script src="js/dragon/campaign-play.js"></script>
+
+  <!-- Game theory -->
+  <script src="js/game-theory.js"></script>
+
+  <!-- Cross-game learning -->
+  <script src="js/cross-game-learning.js"></script>
+
+  <!-- Ollama (local LLM) + universal tutor bridge -->
+  <script src="js/ollama-integration.js"></script>
+  <script src="js/game-tutor-bridge.js"></script>
+
+  <!-- Character cognition -->
+  <script src="js/character-cognition.js"></script>
+
+  <!-- Cross-game systems -->
+  <script src="js/cross-game-achievements.js"></script>
+  <script src="js/profile-card.js"></script>
+  <script src="js/integration-tests.js"></script>
+
+  <!-- Replay and capture -->
+  <script src="js/replay.js"></script>
+  <script src="js/replay-share.js"></script>
+  <script src="js/screenshot.js"></script>
+
+  <!-- Multiplayer -->
+  <script src="js/multiplayer.js"></script>
+
+  <!-- PWA -->
+  <script src="js/service-worker-register.js"></script>
+
+  <!-- Game flow and UI -->
+  <script src="js/game-state.js"></script>
+  <script src="js/game-flow.js"></script>
+  <script src="js/tile-renderer.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/input-handler.js"></script>
+  <script src="js/tutorial.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/intro-screen.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
