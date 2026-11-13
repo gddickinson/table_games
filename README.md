@@ -12,6 +12,7 @@ A living multi-game table game simulator with AI opponents who have persistent p
 | 🃏 **Poker** | Texas Hold'em with full betting (fold/check/call/raise/all-in) | Monte Carlo hand strength, opponent modeling, multi-street planning, learning v2 |
 | 🂡 **Blackjack** | 6-deck shoe, hit/stand/double/split, 3:2 blackjack payout | Basic strategy with personality deviations, adaptive thresholds, card counting (Mei) |
 | 🁣 **Dominoes** | Block dominoes (double-six), play on chain ends, 4 players | Tile counting, blocking strategy, option-maximizing, personality-driven |
+| 🐉 **Dragon's Lair** | AD&D campaign: a party of 6 heroes against an Adult Red Dragon (D&D 5th Edition rules), across the realm of Willowmere | Party AI and dragon AI; control one hero or Auto-Play |
 
 ### Mahjong
 
@@ -28,6 +29,33 @@ A living multi-game table game simulator with AI opponents who have persistent p
 ### Dominoes
 
 ![Dominoes Gameplay](screenshots-allgames/16_dominoes_gameplay.png)
+
+## Web interface and GitHub Pages site
+
+**Live site: https://gddickinson.github.io/table_games/** (the game itself is at `/table_games/game/`).
+
+The game is already a browser app, so the site *is* the game: `index.html`, `js/`, `css/` and `docs/` are served
+unchanged under `game/` and keep their own look. Around it, a house-style shell adds:
+
+| Page | What it shows |
+|------|---------------|
+| Play | the real game in a frame (or full window) |
+| Games | the five games, how their AI plays, the README screenshots |
+| Card lab | the game's own `poker/hand-eval.js` (rank any 5-7 cards, count outs) and `blackjack-ai.js` basic-strategy chart |
+| Docs | the 14 rulebooks and guides in `docs/`, rendered with search |
+| About | how to run everything |
+
+```bash
+pip install -r requirements-web.txt
+python run_web.py                    # http://127.0.0.1:8251  (game at /game/)
+python scripts/build_static.py       # static site in site/ (what GitHub Pages serves)
+python -m pytest -q tests            # web tests + node tests (Card lab vs the game's code, docs renderer)
+```
+
+| Home | Card lab |
+|------|----------|
+| ![Home](docs/img/home.png) | ![Card lab](docs/img/lab.png) |
+| ![Play](docs/img/play.png) | ![Docs](docs/img/docs_rulebook.png) |
 
 ## Quick Start
 
@@ -140,10 +168,12 @@ Every game has a persistent learning system:
 ├── js/                     # 126 core modules
 │   ├── poker/              # 14 poker modules
 │   ├── blackjack/          # 8 blackjack modules
-│   └── dominoes/           # 8 dominoes modules
+│   ├── dominoes/           # 8 dominoes modules
+│   └── dragon/             # 26 Dragon's Lair modules (battle + campaign)
 ├── docs/                   # 14 markdown documentation files
 ├── server/                 # Express + SQLite backend
 ├── python/                 # Python AI bridge + WebSocket server
+├── web/                    # FastAPI wrapper + house-style site shell (see "Web interface")
 ├── sw.js                   # Service worker for offline play
 ├── manifest.json           # PWA manifest
 ├── build.js                # Production bundler
