@@ -7,7 +7,7 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('/sw.js')
+      .register('sw.js')
       .then(registration => {
         // Check for updates on each page load
         registration.addEventListener('updatefound', () => {

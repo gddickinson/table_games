@@ -2,7 +2,7 @@
   "name": "Mahjong — AI Living Simulation",
   "short_name": "Mahjong",
   "description": "Play Mahjong with living AI personalities, adaptive learning, and rich storytelling",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0f3520",
   "theme_color": "#1a4a2e",
